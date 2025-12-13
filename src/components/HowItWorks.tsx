@@ -1,3 +1,4 @@
+import React from 'react';
 import { ClipboardList, Bot, Users, Code, CheckCircle } from 'lucide-react'
 
 const steps = [
@@ -45,7 +46,7 @@ const colorStyles = {
   amber: { bg: 'bg-accent-amber/10', text: 'text-accent-amber', border: 'border-accent-amber/30' },
 }
 
-const HowItWorks = () => {
+export default function HowItWorks() {
   return (
     <section className="section bg-work21-darker relative overflow-hidden">
       {/* Background */}
@@ -111,7 +112,5 @@ const HowItWorks = () => {
     </section>
   )
 }
-
-export default HowItWorks;
 
 

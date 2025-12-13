@@ -1,3 +1,4 @@
+import React from 'react';
 import { Brain, UserSearch, FileCheck, ArrowRight } from 'lucide-react'
 
 const agents = [
@@ -51,7 +52,7 @@ const colorStyles = {
   },
 }
 
-const AIAgents = () => {
+export default function AIAgents() {
   return (
     <section className="section bg-work21-darker relative overflow-hidden">
       {/* Background pattern */}
@@ -131,7 +132,5 @@ const AIAgents = () => {
     </section>
   )
 }
-
-export default AIAgents;
 
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Rocket, Eye, ShieldCheck, Trophy, Briefcase, TrendingUp } from 'lucide-react'
 
 const features = {
@@ -37,7 +38,7 @@ const features = {
   ],
 }
 
-const Features = () => {
+export default function Features() {
   return (
     <section className="section relative">
       <div className="container-lg mx-auto">
@@ -125,7 +126,5 @@ function FeatureCard({
     </div>
   )
 }
-
-export default Features;
 
 

@@ -1,6 +1,8 @@
+import React from 'react';
+import { Link } from 'react-router-dom'
 import { ArrowRight, Zap } from 'lucide-react'
 
-const CTA = () => {
+export default function CTA() {
   return (
     <section className="section relative overflow-hidden">
       {/* Background Effects */}
@@ -28,19 +30,19 @@ const CTA = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/register?role=student"
+            <Link
+              to="/register?role=student"
               className="btn-primary inline-flex items-center justify-center gap-2 text-lg px-8 py-4"
             >
               Зарегистрироваться как студент
               <ArrowRight className="w-5 h-5" />
-            </a>
-            <a
-              href="/register?role=customer"
+            </Link>
+            <Link
+              to="/register?role=customer"
               className="btn-outline inline-flex items-center justify-center gap-2 text-lg px-8 py-4"
             >
               Создать проект как заказчик
-            </a>
+            </Link>
           </div>
 
           {/* Trust indicators */}
@@ -63,7 +65,5 @@ const CTA = () => {
     </section>
   )
 }
-
-export default CTA;
 
 

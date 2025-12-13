@@ -1,4 +1,7 @@
+'use client';
+
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api, User, RegisterData, ApiError } from './api';
 
 interface AuthContextType {
@@ -16,7 +19,9 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
+  // Загрузка пользователя при инициализации
   const loadUser = useCallback(async () => {
     const token = localStorage.getItem('access_token');
     if (!token) {
@@ -28,6 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const userData = await api.users.getMe();
       setUser(userData);
     } catch (error) {
+      // Токен невалидный — удаляем
       localStorage.removeItem('access_token');
       setUser(null);
     } finally {
@@ -39,16 +45,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     loadUser();
   }, [loadUser]);
 
+  // Вход
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
       const response = await api.auth.login(email, password);
       localStorage.setItem('access_token', response.access_token);
       
+      // Загружаем данные пользователя
       const userData = await api.users.getMe();
       setUser(userData);
       
-      window.location.href = '/dashboard';
+      // Редирект в dashboard
+      navigate('/dashboard');
     } catch (error) {
       if (error instanceof ApiError) {
         throw error;
@@ -59,10 +68,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  // Регистрация
   const register = async (data: RegisterData) => {
     setIsLoading(true);
     try {
+      // Регистрируем пользователя
       await api.auth.register(data);
+      
+      // Автоматически входим
       await login(data.email, data.password);
     } catch (error) {
       setIsLoading(false);
@@ -73,12 +86,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  // Выход
   const logout = () => {
     localStorage.removeItem('access_token');
     setUser(null);
-    window.location.href = '/';
+    navigate('/');
   };
 
+  // Обновление данных пользователя
   const refreshUser = async () => {
     try {
       const userData = await api.users.getMe();
@@ -105,6 +120,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
+// Хук для использования контекста
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
@@ -112,4 +128,41 @@ export function useAuth() {
   }
   return context;
 }
+
+// HOC для защиты страниц
+export function withAuth<P extends object>(
+  Component: React.ComponentType<P>,
+  options?: { allowedRoles?: ('student' | 'customer' | 'admin')[] }
+) {
+  return function ProtectedComponent(props: P) {
+    const { user, isLoading, isAuthenticated } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (!isLoading && !isAuthenticated) {
+        navigate('/login');
+      }
+      
+      // Проверка роли
+      if (options?.allowedRoles && user && !options.allowedRoles.includes(user.role)) {
+        navigate('/dashboard');
+      }
+    }, [isLoading, isAuthenticated, user, navigate]);
+
+    if (isLoading) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-work21-dark">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent-green"></div>
+        </div>
+      );
+    }
+
+    if (!isAuthenticated) {
+      return null;
+    }
+
+    return <Component {...props} />;
+  };
+}
+
 

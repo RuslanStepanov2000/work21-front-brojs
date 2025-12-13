@@ -1,3 +1,5 @@
+import React from 'react';
+import { Link } from 'react-router-dom'
 import { Zap, Github, MessageCircle, Mail } from 'lucide-react'
 
 const footerLinks = {
@@ -20,7 +22,7 @@ const footerLinks = {
   ],
 }
 
-const Footer = () => {
+export default function Footer() {
   return (
     <footer className="bg-work21-darker border-t border-work21-border">
       <div className="container-lg mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,14 +30,14 @@ const Footer = () => {
         <div className="py-12 md:py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <a href="/" className="flex items-center gap-2 mb-4">
+            <Link to="/" className="flex items-center gap-2 mb-4">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-green to-accent-blue flex items-center justify-center">
                 <Zap className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold">
                 WORK<span className="text-accent-green">21</span>
               </span>
-            </a>
+            </Link>
             <p className="text-gray-400 mb-6 max-w-sm">
               Платформа, соединяющая студентов Школы 21 с реальными заказчиками. 
               Получайте опыт, создавайте портфолио, зарабатывайте.
@@ -53,9 +55,9 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.platform.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                  <Link to={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -66,9 +68,9 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                  <Link to={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -79,9 +81,9 @@ const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                  <Link to={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -115,7 +117,5 @@ function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
     </a>
   )
 }
-
-export default Footer;
 
 

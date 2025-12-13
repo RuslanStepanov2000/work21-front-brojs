@@ -1,6 +1,8 @@
+import React from 'react';
+import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles, Users, Shield } from 'lucide-react'
 
-const Hero = () => {
+export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
       {/* Background Effects */}
@@ -33,13 +35,13 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-slide-up animate-delay-200">
-            <a href="/register?role=student" className="btn-primary inline-flex items-center justify-center gap-2 text-lg">
+            <Link to="/register?role=student" className="btn-primary inline-flex items-center justify-center gap-2 text-lg">
               Я студент
               <ArrowRight className="w-5 h-5" />
-            </a>
-            <a href="/register?role=customer" className="btn-outline inline-flex items-center justify-center gap-2 text-lg">
+            </Link>
+            <Link to="/register?role=customer" className="btn-outline inline-flex items-center justify-center gap-2 text-lg">
               Я заказчик
-            </a>
+            </Link>
           </div>
 
           {/* Stats */}
@@ -85,4 +87,4 @@ function StatCard({
   )
 }
 
-export default Hero;
+
