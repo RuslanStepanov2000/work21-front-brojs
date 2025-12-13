@@ -30,7 +30,7 @@ export default function StudentsPage() {
   // Проверяем, что пользователь - заказчик
   useEffect(() => {
     if (user && user.role !== 'customer') {
-      navigate('/work21-front-brojs/dashboard');
+      navigate('/dashboard');
     }
   }, [user, navigate]);
 
@@ -302,7 +302,7 @@ export default function StudentsPage() {
                     )}
                   </div>
                   <Link
-                    to={`/work21-front-brojs/dashboard/users/${student.id}`}
+                    to={`/dashboard/users/${student.id}`}
                     className="w-full btn-primary text-sm flex items-center justify-center gap-2"
                   >
                     <User className="w-4 h-4" />

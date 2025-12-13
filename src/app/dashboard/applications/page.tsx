@@ -153,7 +153,7 @@ export default function ApplicationsPage() {
                       ID заявки: {application.id}
                     </div>
                     <Link
-                      to={`/work21-front-brojs/dashboard/projects/${project.id}`}
+                      to={`/dashboard/projects/${project.id}`}
                       className="px-4 py-2 rounded-lg bg-accent-blue/10 border border-accent-blue/30 text-accent-blue hover:bg-accent-blue/20 transition-colors text-sm flex items-center gap-2"
                     >
                       <Eye className="w-4 h-4" />

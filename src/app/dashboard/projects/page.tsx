@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/lib/auth-context';
 import { projectsApi, Project, ApiError } from '@/lib/api';
@@ -36,49 +36,49 @@ export default function ProjectsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
+  const loadProjects = useCallback(async () => {
     if (!user) return;
-
-    const loadProjects = async () => {
-      try {
-        setIsLoading(true);
-        setError('');
-        
-        let data: Project[];
-        if (user.role === 'customer') {
-          // Для заказчика - его проекты
-          data = await projectsApi.getMy();
-        } else {
-          // Для студента - открытые проекты И проекты где он назначен исполнителем
-          const [openProjects, myProjects] = await Promise.all([
-            projectsApi.getList('open'),
-            projectsApi.getMy(), // Это вернет проекты где студент назначен исполнителем
-          ]);
-          // Объединяем и убираем дубликаты
-          const allProjects = [...openProjects];
-          myProjects.forEach(p => {
-            if (!allProjects.find(ap => ap.id === p.id)) {
-              allProjects.push(p);
-            }
-          });
-          data = allProjects;
-        }
-        
-        setProjects(data);
-      } catch (err) {
-        if (err instanceof ApiError) {
-          setError(err.message);
-        } else {
-          setError('Ошибка при загрузке проектов');
-        }
-        console.error('Ошибка загрузки проектов:', err);
-      } finally {
-        setIsLoading(false);
+    
+    try {
+      setIsLoading(true);
+      setError('');
+      
+      let data: Project[];
+      if (user.role === 'customer') {
+        // Для заказчика - его проекты
+        data = await projectsApi.getMy();
+      } else {
+        // Для студента - открытые проекты И проекты где он назначен исполнителем
+        const [openProjects, myProjects] = await Promise.all([
+          projectsApi.getList('open'),
+          projectsApi.getMy(), // Это вернет проекты где студент назначен исполнителем
+        ]);
+        // Объединяем и убираем дубликаты
+        const allProjects = [...openProjects];
+        myProjects.forEach(p => {
+          if (!allProjects.find(ap => ap.id === p.id)) {
+            allProjects.push(p);
+          }
+        });
+        data = allProjects;
       }
-    };
-
-    loadProjects();
+      
+      setProjects(data);
+    } catch (err) {
+      if (err instanceof ApiError) {
+        setError(err.message);
+      } else {
+        setError('Ошибка при загрузке проектов');
+      }
+      console.error('Ошибка загрузки проектов:', err);
+    } finally {
+      setIsLoading(false);
+    }
   }, [user]);
+
+  useEffect(() => {
+    loadProjects();
+  }, [loadProjects]);
 
   if (!user) return null;
 
@@ -158,7 +158,7 @@ export default function ProjectsPage() {
               : 'Открытые проекты появятся здесь'}
           </p>
           {user.role === 'customer' && (
-            <Link href="/dashboard/projects/new" className="btn-primary inline-flex items-center gap-2">
+            <Link to="/dashboard/projects/new" className="btn-primary inline-flex items-center gap-2">
               <Plus className="w-4 h-4" />
               Создать проект
             </Link>
@@ -325,7 +325,7 @@ export default function ProjectsPage() {
                             onClick={async () => {
                               try {
                                 await projectsApi.publish(project.id);
-                                navigate.refresh();
+                                await loadProjects();
                               } catch (err) {
                                 console.error('Ошибка публикации:', err);
                               }
@@ -336,7 +336,7 @@ export default function ProjectsPage() {
                           </button>
                         )}
                         <Link
-                          to={`/work21-front-brojs/dashboard/projects/${project.id}`}
+                          to={`/dashboard/projects/${project.id}`}
                           className="px-4 py-2 rounded-lg bg-accent-blue/10 border border-accent-blue/30 text-accent-blue hover:bg-accent-blue/20 transition-colors text-sm flex items-center gap-2"
                         >
                           <Eye className="w-4 h-4" />
@@ -350,7 +350,7 @@ export default function ProjectsPage() {
                           Вы исполнитель
                         </div>
                         <Link
-                          to={`/work21-front-brojs/dashboard/projects/${project.id}`}
+                          to={`/dashboard/projects/${project.id}`}
                           className="px-4 py-2 rounded-lg bg-accent-blue/10 border border-accent-blue/30 text-accent-blue hover:bg-accent-blue/20 transition-colors text-sm flex items-center gap-2"
                         >
                           <Eye className="w-4 h-4" />
@@ -360,7 +360,7 @@ export default function ProjectsPage() {
                     )}
                     {user.role === 'student' && project.status === 'open' && !project.assignee_id && (
                       <Link
-                        href={`/dashboard/projects/${project.id}`}
+                        to={`/dashboard/projects/${project.id}`}
                         className="btn-primary text-sm flex items-center gap-2"
                       >
                         <Users className="w-4 h-4" />
@@ -369,7 +369,7 @@ export default function ProjectsPage() {
                     )}
                     {user.role === 'student' && project.status !== 'open' && project.assignee_id !== user.id && (
                       <Link
-                        href={`/dashboard/projects/${project.id}`}
+                        to={`/dashboard/projects/${project.id}`}
                         className="px-4 py-2 rounded-lg bg-accent-blue/10 border border-accent-blue/30 text-accent-blue hover:bg-accent-blue/20 transition-colors text-sm flex items-center gap-2"
                       >
                         <Eye className="w-4 h-4" />

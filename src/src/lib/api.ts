@@ -1,8 +1,19 @@
 /**
  * API клиент для взаимодействия с backend WORK21
  */
+import { getConfigValue } from "@brojs/cli";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// Получаем базовый URL и убираем завершающий слэш и /api если есть
+const getApiBaseUrl = () => {
+  const url = getConfigValue('work21-front-brojs.api') || 'http://localhost:8000';
+  // Убираем завершающий слэш
+  let baseUrl = url.replace(/\/$/, '');
+  // Убираем /api если есть в конце (пути уже содержат /api/v1/...)
+  baseUrl = baseUrl.replace(/\/api$/, '');
+  return baseUrl;
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 // Типы данных
 export interface User {
@@ -460,7 +471,14 @@ export const ratingsApi = {
 
 // ==================== LLM ESTIMATOR API ====================
 
-const ESTIMATOR_API_URL = process.env.NEXT_PUBLIC_ESTIMATOR_API_URL || 'http://localhost:8080';
+// Получаем URL для estimator API
+const getEstimatorApiUrl = () => {
+  const url = getConfigValue('work21-front-brojs.api.estimator') || 'http://localhost:8080';
+  // Убираем завершающий слэш
+  return url.replace(/\/$/, '');
+};
+
+const ESTIMATOR_API_URL = getEstimatorApiUrl();
 
 export interface EstimationRequest {
   prompt: string;

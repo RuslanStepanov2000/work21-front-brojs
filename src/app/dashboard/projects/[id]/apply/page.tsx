@@ -26,7 +26,7 @@ export default function ApplyProjectPage() {
   useEffect(() => {
     if (!user || !projectId) return;
     if (user.role !== 'student') {
-      navigate('/work21-front-brojs/dashboard');
+      navigate('/dashboard');
       return;
     }
 
@@ -50,7 +50,7 @@ export default function ApplyProjectPage() {
     };
 
     loadProject();
-  }, [user, projectId, router]);
+  }, [user, projectId, navigate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -74,7 +74,7 @@ export default function ApplyProjectPage() {
       );
       setSuccess(true);
       setTimeout(() => {
-        navigate(`/work21-front-brojs/dashboard/projects/${projectId}`);
+        navigate(`/dashboard/projects/${projectId}`);
       }, 2000);
     } catch (err) {
       if (err instanceof ApiError) {
@@ -101,7 +101,7 @@ export default function ApplyProjectPage() {
     return (
       <div className="space-y-6">
         <Link
-          to={`/work21-front-brojs/dashboard/projects/${projectId}`}
+          to={`/dashboard/projects/${projectId}`}
           className="p-2 rounded-lg bg-work21-card border border-work21-border hover:border-accent-green transition-colors inline-flex items-center gap-2"
         >
           <ArrowLeft className="w-5 h-5 text-gray-400" />
@@ -121,7 +121,7 @@ export default function ApplyProjectPage() {
     <div className="space-y-6">
       <div className="flex items-center gap-4">
         <Link
-          to={`/work21-front-brojs/dashboard/projects/${projectId}`}
+          to={`/dashboard/projects/${projectId}`}
           className="p-2 rounded-lg bg-work21-card border border-work21-border hover:border-accent-green transition-colors"
         >
           <ArrowLeft className="w-5 h-5 text-gray-400" />
@@ -203,8 +203,8 @@ export default function ApplyProjectPage() {
 
           <div className="flex items-center gap-4 pt-4">
             <Link
-              to={`/work21-front-brojs/dashboard/projects/${projectId}`}
-              className="px-6 py-3 rounded-lg bg-work21-card border border-work21-border text-gray-300 hover:border-gray-600 transition-colors"
+              to={`/dashboard/projects/${projectId}`}
+              className="px-6 py-3 rounded-lg bg-work21-card border border-work21-border text-white hover:bg-work21-dark hover:border-accent-green/50 transition-colors"
             >
               Отмена
             </Link>

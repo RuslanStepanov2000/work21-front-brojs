@@ -136,6 +136,11 @@ body {
     background-color: #059669;
   }
   
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
   .btn-secondary {
     @apply px-6 py-3 font-medium rounded-lg border transition-all duration-200;
     background: var(--color-card);
@@ -145,6 +150,7 @@ body {
   
   .btn-secondary:hover {
     background: var(--color-border);
+    border-color: var(--color-border);
   }
   
   .btn-outline {
@@ -157,6 +163,28 @@ body {
     background: var(--color-card);
     border-color: var(--color-accent-green);
   }
+}
+
+/* Улучшение контрастности кнопок в темной теме */
+.dark button[class*="bg-accent-green"] {
+  background-color: #10b981 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.dark button[class*="bg-accent-green"]:hover:not(:disabled) {
+  background-color: #059669 !important;
+}
+
+.dark button[class*="bg-work21-card"] {
+  background-color: #12121a !important;
+  border-color: #1e1e2a !important;
+  color: #e5e5e5 !important;
+}
+
+.dark button[class*="bg-work21-card"]:hover {
+  background-color: #1a1a24 !important;
+  border-color: #2a2a3a !important;
 }
 
 /* Секции */
@@ -225,7 +253,20 @@ body {
   color: #ffffff !important;
 }
 
-/* Фоны в светлой теме */
+/* Фоны - темная тема */
+.dark .bg-work21-dark {
+  background-color: #0f0f17 !important;
+}
+
+.dark .bg-work21-card {
+  background-color: #12121a !important;
+}
+
+.dark .bg-work21-dark\/50 {
+  background-color: rgba(15, 15, 23, 0.5) !important;
+}
+
+/* Фоны - светлая тема */
 .light .bg-work21-dark {
   background-color: var(--color-bg) !important;
 }
@@ -238,7 +279,16 @@ body {
   background-color: color-mix(in srgb, var(--color-bg) 50%, transparent) !important;
 }
 
-/* Границы в светлой теме */
+/* Границы - темная тема */
+.dark .border-work21-border {
+  border-color: #1e1e2a !important;
+}
+
+.dark .border-work21-card {
+  border-color: #1e1e2a !important;
+}
+
+/* Границы - светлая тема */
 .light .border-work21-border {
   border-color: var(--color-border) !important;
 }
@@ -260,12 +310,74 @@ body {
   background-color: var(--color-card) !important;
 }
 
-/* Placeholder текст */
-.light .placeholder-gray-500::placeholder {
-  color: var(--color-text-muted) !important;
+/* Placeholder текст - темная тема */
+.dark .placeholder-gray-500::placeholder {
+  color: #6b7280 !important;
+  opacity: 1;
 }
 
-/* Input поля */
+/* Placeholder текст - светлая тема */
+.light .placeholder-gray-500::placeholder {
+  color: var(--color-text-muted) !important;
+  opacity: 1;
+}
+
+/* Input поля - темная тема */
+.dark input[class*="bg-work21"],
+.dark textarea[class*="bg-work21"],
+.dark select[class*="bg-work21"],
+.dark input.bg-work21-dark,
+.dark textarea.bg-work21-dark,
+.dark select.bg-work21-dark {
+  background-color: #0f0f17 !important;
+  border-color: #1e1e2a !important;
+  color: #ffffff !important;
+}
+
+.dark input[class*="bg-work21"]:focus,
+.dark textarea[class*="bg-work21"]:focus,
+.dark select[class*="bg-work21"]:focus,
+.dark input.bg-work21-dark:focus,
+.dark textarea.bg-work21-dark:focus,
+.dark select.bg-work21-dark:focus {
+  border-color: var(--color-accent-green) !important;
+  background-color: #0f0f17 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+.dark input[class*="bg-work21"]::placeholder,
+.dark textarea[class*="bg-work21"]::placeholder,
+.dark select[class*="bg-work21"]::placeholder,
+.dark input.bg-work21-dark::placeholder,
+.dark textarea.bg-work21-dark::placeholder {
+  color: #6b7280 !important;
+  opacity: 1 !important;
+}
+
+/* Улучшение контрастности для всех input/textarea в темной теме */
+.dark input[type="text"],
+.dark input[type="email"],
+.dark input[type="password"],
+.dark input[type="number"],
+.dark input[type="datetime-local"],
+.dark textarea {
+  background-color: #0f0f17 !important;
+  border-color: #1e1e2a !important;
+  color: #ffffff !important;
+}
+
+.dark input[type="text"]:focus,
+.dark input[type="email"]:focus,
+.dark input[type="password"]:focus,
+.dark input[type="number"]:focus,
+.dark input[type="datetime-local"]:focus,
+.dark textarea:focus {
+  border-color: var(--color-accent-green) !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Input поля - светлая тема */
 .light input,
 .light textarea,
 .light select {

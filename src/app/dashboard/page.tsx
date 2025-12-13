@@ -179,7 +179,7 @@ function StudentDashboard({ user }: { user: any }) {
             {myProjects.slice(0, 3).map((project) => (
               <Link
                 key={project.id}
-                to={`/work21-front-brojs/dashboard/projects/${project.id}`}
+                to={`/dashboard/projects/${project.id}`}
                 className="block p-4 rounded-xl bg-work21-dark/50 border border-accent-green/30 hover:border-accent-green/50 transition-colors"
               >
                 <div className="flex items-start justify-between mb-2">
@@ -230,7 +230,7 @@ function StudentDashboard({ user }: { user: any }) {
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-semibold text-white">Рекомендованные проекты</h3>
           <Link
-            href="/dashboard/projects"
+            to="/dashboard/projects"
             className="text-sm text-accent-green hover:underline"
           >
             Смотреть все
@@ -254,7 +254,7 @@ function StudentDashboard({ user }: { user: any }) {
             {projects.slice(0, 3).map((project) => (
               <Link
                 key={project.id}
-                to={`/work21-front-brojs/dashboard/projects`}
+                to={`/dashboard/projects`}
                 className="block p-4 rounded-xl bg-work21-dark/50 border border-work21-border hover:border-accent-green/30 transition-colors"
               >
                 <div className="flex items-start justify-between mb-2">
@@ -482,7 +482,7 @@ function CustomerDashboard({ user }: { user: any }) {
             {projects.slice(0, 3).map((project) => (
               <Link
                 key={project.id}
-                to={`/work21-front-brojs/dashboard/projects`}
+                to={`/dashboard/projects`}
                 className="block p-4 rounded-xl bg-work21-dark/50 border border-work21-border hover:border-accent-green/30 transition-colors"
               >
                 <div className="flex items-start justify-between mb-2">

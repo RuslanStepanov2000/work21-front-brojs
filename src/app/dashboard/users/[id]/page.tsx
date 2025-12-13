@@ -113,7 +113,7 @@ export default function UserProfilePage() {
       {/* Header */}
       <div className="flex items-center gap-4">
         <Link
-          href="/dashboard/students"
+          to="/dashboard/students"
           className="p-2 rounded-lg bg-work21-card border border-work21-border hover:border-accent-green transition-colors"
         >
           <ArrowLeft className="w-5 h-5 text-gray-400" />

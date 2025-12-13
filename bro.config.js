@@ -44,8 +44,8 @@ module.exports = {
     },
   },
   config: {
-    "work21-front-brojs.api": "/api",
-    "work21-front-brojs.api.estimator" : "/estimator"
+    "work21-front-brojs.api": process.env.API_URL || "http://localhost:8000",
+    "work21-front-brojs.api.estimator": process.env.ESTIMATOR_API_URL || "http://localhost:8080"
   },
   // Укажите путь к кастомному HTML-шаблону для prom-режима или оставьте undefined
   htmlTemplatePath: undefined,

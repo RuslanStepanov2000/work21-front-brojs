@@ -39,9 +39,9 @@ export default function NewProjectPage() {
   // Проверяем, что пользователь - заказчик
   useEffect(() => {
     if (user && user.role !== 'customer') {
-      navigate('/work21-front-brojs/dashboard');
+      navigate('/dashboard');
     }
-  }, [user, router]);
+  }, [user, navigate]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -176,7 +176,7 @@ export default function NewProjectPage() {
       
       // Редирект на главную страницу дашборда через 1.5 секунды
       setTimeout(() => {
-        navigate('/work21-front-brojs/dashboard');
+        navigate('/dashboard');
       }, 1500);
     } catch (err) {
       if (err instanceof ApiError) {
@@ -442,7 +442,7 @@ export default function NewProjectPage() {
         <div className="flex items-center justify-end gap-4">
           <Link
             to="/dashboard"
-            className="px-6 py-3 rounded-lg bg-work21-card border border-work21-border text-gray-300 hover:border-gray-600 transition-colors"
+            className="px-6 py-3 rounded-lg bg-work21-card border border-work21-border text-white hover:bg-work21-dark hover:border-accent-green/50 transition-colors"
           >
             Отмена
           </Link>

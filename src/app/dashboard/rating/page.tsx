@@ -110,7 +110,7 @@ export default function RatingPage() {
                   </div>
                 </div>
                 <Link
-                  to={`/work21-front-brojs/dashboard/projects/${rating.project_id}`}
+                  to={`/dashboard/projects/${rating.project_id}`}
                   className="px-3 py-1 rounded-lg bg-accent-blue/10 border border-accent-blue/30 text-accent-blue hover:bg-accent-blue/20 transition-colors text-sm"
                 >
                   Проект #{rating.project_id}
