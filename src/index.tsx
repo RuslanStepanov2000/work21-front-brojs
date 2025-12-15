@@ -3,7 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
   
-import App from './app';
+import App from './App';
   
 export default () => <App/>;
   
@@ -14,7 +14,7 @@ export const mount = (Component, element = document.getElementById('app')) => {
   rootElement.render(<Component/>);
 
   if(module.hot) {
-      module.hot.accept('./app', ()=> {
+      module.hot.accept('./App', ()=> {
         rootElement.render(<Component/>);
       })
   }
