@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <BrowserRouter basename="/work21-front-brojs">
+    <BrowserRouter basename="/work21">
       <ThemeProvider>
         <AuthProvider>
           {children}
